@@ -22,6 +22,7 @@ public class TileMap {
         }
         
         BuscaEmLargura.buscaEmLargura(mapa.getMap().get(0), mapa.getMap().get(39), mapa);
+        BuscaEmProfundidade.buscaEmProfundidade(mapa.getMap().get(0), mapa.getMap().get(39), mapa);
         
     }
     

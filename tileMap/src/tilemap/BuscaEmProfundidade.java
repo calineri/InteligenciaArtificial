@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BuscaEmLargura {
+public class BuscaEmProfundidade {
     public static List<Node> fila = new ArrayList();
     public static List<Node> caminho = new ArrayList();
     public static int tamanhoDoMapa;    
     
-    public static List<Node> buscaEmLargura(Node noInicial, Node noDestino, Map mapa){
+    public static List<Node> buscaEmProfundidade(Node noInicial, Node noDestino, Map mapa){
         
         Node noAtual = noInicial;
         tamanhoDoMapa = mapa.getMap().size();
@@ -28,7 +28,7 @@ public class BuscaEmLargura {
                 return montaCaminho(noInicial, noDestino);
             }
             
-            noAtual = fila.remove(0);
+            noAtual = fila.remove(fila.size()-1);
             
             for(Node no: noAtual.getNodes()){
                 if(!no.isVisited() && !no.isBlocked()){
@@ -67,5 +67,4 @@ public class BuscaEmLargura {
         return listaAuxiliar;
         
     }
-    
 }
