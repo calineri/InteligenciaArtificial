@@ -21,8 +21,16 @@ public class TileMap {
             System.out.println(node.getID());
         }
         
+        // Utilizando metodo estático
         BuscaEmLargura.buscaEmLargura(mapa.getMap().get(0), mapa.getMap().get(39), mapa);
         BuscaEmProfundidade.buscaEmProfundidade(mapa.getMap().get(0), mapa.getMap().get(39), mapa);
+        
+        // Utilizando objetos
+        Busca buscaL = new Busca();
+        Busca buscaP = new Busca();
+        
+        buscaL.buscaEmLargura(mapa.getMap().get(0), mapa.getMap().get(39), mapa);
+        buscaP.buscaEmProfundidade(mapa.getMap().get(0), mapa.getMap().get(39), mapa);
         
     }
     

@@ -24,6 +24,13 @@ public class Node {
         this.neighbors = new ArrayList();
     }
     
+    public Node(Node node){
+        this.ID = node.getID();
+        this.visited = node.isVisited();
+        this.blocked = node.isBlocked();
+        this.neighbors = node.getNodes();
+    }
+    
     /* nao quero que altere o ID de ninguem
     public void setID(int ID){
         this.ID = ID;

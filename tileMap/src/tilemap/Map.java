@@ -10,11 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Map {
-    public static List<Node> map = new ArrayList();
-    public static int lines;
-    public static int columns;
+    private List<Node> map;
+    private int lines;
+    private int columns;
     
     public Map(int lines, int columns){
+        this.map = new ArrayList();
         this.lines = lines;
         this.columns = columns;
         mapCreate();
@@ -29,7 +30,7 @@ public class Map {
         return this.lines * this.columns;
     }
     
-    public void mapCreate(){
+    private void mapCreate(){
         int id=0;
         
         for(int i=0; i<this.lines; i++){
@@ -109,7 +110,7 @@ public class Map {
     }
     
     
-    public void neighboorsCreate(){
+    private void neighboorsCreate(){
         
         for(Node node: map){
             node.getNodes().addAll(this.findDiagonal(node));
