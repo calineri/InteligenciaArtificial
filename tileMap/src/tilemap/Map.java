@@ -21,7 +21,15 @@ public class Map {
         mapCreate();
         neighboorsCreate();
     }
-    
+
+    public int getLines() {
+        return lines;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
     public List<Node> getMap(){
         return map;
     }

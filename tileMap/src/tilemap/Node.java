@@ -12,6 +12,7 @@ import java.util.List;
 public class Node {
     
     private int ID;
+    private float h, g, f; // para o A*
     private Node father;
     private boolean visited;
     private boolean blocked;
@@ -39,6 +40,30 @@ public class Node {
     
     public int getID(){
         return this.ID;
+    }
+
+    public float getH() {
+        return h;
+    }
+
+    public void setH(float h) {
+        this.h = h;
+    }
+
+    public float getG() {
+        return g;
+    }
+
+    public void setG(float g) {
+        this.g = g;
+    }
+
+    public float getF() {
+        return f;
+    }
+
+    public void setF(float f) {
+        this.f = f;
     }
     
     public Node getFather(){
