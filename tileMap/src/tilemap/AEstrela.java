@@ -56,10 +56,12 @@ public class AEstrela {
                     no.setF(calcularF(no));
                 }
             }
-            //parei aqui
+            if(listaAberta.isEmpty()){
+                System.out.println("Não achou caminho");
+                return null;
+            }
         }
-        
-        return null;
+        return montaCaminho(noInicial, noDestino, mapa);
     }
     
     private static Node procurarMenorF(){
@@ -93,5 +95,57 @@ public class AEstrela {
     
     private static float calcularF(Node no){
         return no.getG() + no.getH();
+    }
+    
+    private static List<Node> montaCaminho(Node noInicial, Node noDestino, Map mapa) {
+        List<Node> listaAuxiliar = new ArrayList();
+        Node noAtual = noDestino;
+        int contador = 0;
+        while (!listaAuxiliar.contains(noInicial) || contador > tamanhoDoMapa){
+            listaAuxiliar.add(noAtual);
+
+            noAtual = noAtual.getFather();
+                        
+            contador++;
+        }
+
+        Collections.reverse(listaAuxiliar);
+        
+        //imprimir caminho
+        System.out.println("Caminho: ");
+        for(Node no: listaAuxiliar){
+            System.out.print(" -> " + no.getID());
+        }
+        
+        //inicio artificio apenas para printar caminho
+        for(Node no: mapa.getMap()){
+          if(!listaAuxiliar.contains(no))  no.setFather(null);
+          
+        }
+        //fim do artificio
+        
+        System.out.println("");
+        desenha(mapa);
+        System.out.println("Fim ! ");
+        
+        //retorno do caminho
+        return listaAuxiliar;
+    }
+    
+    public static void desenha(Map mapa){
+        System.out.println("");
+        for (int i = 0; i<mapa.getLines(); i++){
+            for (int j = 0; j<mapa.getColumns(); j++){
+                Node no = mapa.getMap().get((i*mapa.getColumns())+j);
+                if(no.getFather() != null ){
+                    System.out.print("[-]");
+                }else if(no.isBlocked()){
+                    System.out.print("[X]");
+                }else{
+                    System.out.print("[ ]");
+                }
+            }
+            System.out.println();
+        }
     }
 }
