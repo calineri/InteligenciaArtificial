@@ -103,8 +103,9 @@ public class Chromosome implements Comparable<Chromosome> {
 		char[] arr  = gene.toCharArray();
 		//mudar um gene aleatório para um valor aleatório
                 //lembrando que esse aleatório pode ser qualquer letra ou caracter especial, além de ser case sensitive
-                int i = rand.nextInt(arr.length);
-                arr[i] = (char) rand.nextInt(256);
+                int idx     = rand.nextInt(arr.length);
+                int delta   = (rand.nextInt() % 90) + 32;
+                arr[idx]    = (char) ((arr[idx] + delta) % 122);
                 
 		return new Chromosome(String.valueOf(arr));
 	}
@@ -135,7 +136,9 @@ public class Chromosome implements Comparable<Chromosome> {
          * fazer o filho 1
          *############################################################ 
 	 */
-		
+                System.arraycopy(arr1, 0, child1, 0, pivot);
+		System.arraycopy(arr2, pivot, child1, pivot, (child1.length - pivot));
+                
 		// Repeat for the second child, but in reverse order.
 		/**
                  * 
@@ -143,7 +146,9 @@ public class Chromosome implements Comparable<Chromosome> {
          * fazer o filho 2
          *############################################################ 
 	 */
-
+                System.arraycopy(arr2, 0, child2, 0, pivot);
+		System.arraycopy(arr1, pivot, child2, pivot, (child2.length - pivot));
+                
 		return new Chromosome[] { new Chromosome(String.valueOf(child1)), 
 				new Chromosome(String.valueOf(child2))}; 
 	}
