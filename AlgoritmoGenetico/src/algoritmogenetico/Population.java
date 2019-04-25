@@ -23,6 +23,7 @@ public class Population {
 	private float elitism;
 	private float mutation;
 	private float crossover;
+        private float inversion;
 	private Chromosome[] popArr;
 
 	/**
@@ -39,11 +40,12 @@ public class Population {
 	 * @throws IllegalArgumentException Thrown if an invalid ratio is given.
 	 */
 	public Population(int size, float crossoverRatio, float elitismRatio, 
-			float mutationRatio) {
+			float mutationRatio, float inversionRatio) {
 		
 		this.crossover = crossoverRatio;
 		this.elitism = elitismRatio;
 		this.mutation = mutationRatio;
+                this.inversion = inversionRatio;
 		
 		// Generate an initial population
 		this.popArr = new Chromosome[size];
@@ -174,4 +176,7 @@ public class Population {
 		
 		return parents;
 	}
+        public void testaInversao(){
+            this.popArr[0].inversion();
+        }
 }

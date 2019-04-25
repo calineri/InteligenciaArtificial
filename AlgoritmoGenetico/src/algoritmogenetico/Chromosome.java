@@ -5,6 +5,9 @@
  */
 package algoritmogenetico;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -153,6 +156,46 @@ public class Chromosome implements Comparable<Chromosome> {
 				new Chromosome(String.valueOf(child2))}; 
 	}
 	
+        public Chromosome inversion(){
+            char[] arr   = gene.toCharArray();
+            char[] child = new char[gene.length()];
+            
+            for( char x : arr){
+                System.out.print(x + ",");
+            }
+            System.out.println();
+            
+            int pivot1   = rand.nextInt(arr.length);
+            int pivot2   = rand.nextInt(arr.length);
+            
+            if(pivot1 >= pivot2){
+                int aux = pivot1;
+                pivot1 = pivot2;
+                pivot2 = aux;
+            }
+            
+            System.arraycopy(arr, 0, child, 0, pivot1);
+            System.arraycopy(arr, pivot2, child, pivot2, (arr.length-pivot2));
+            
+            Character[] buffer = new Character[Math.abs(pivot1 - pivot2)];
+            
+            System.arraycopy(arr, pivot1, buffer, 0, Math.abs(pivot1 - pivot2));
+            
+            List<Character> lista = Arrays.asList(buffer);
+            Collections.reverse(lista);
+            
+            buffer = lista.toArray(new Character[lista.size()]);
+            
+            System.arraycopy(buffer, 0, child, pivot1, Math.abs(pivot1 - pivot2));
+            
+            for( char x : arr){
+                System.out.print(x + ",");
+            }
+            
+            System.out.println();
+            return new Chromosome(String.valueOf(child));
+        }
+        
 	/**
 	 * A convenience method to generate a randome <code>Chromosome</code>.
 	 * 

@@ -34,14 +34,17 @@ public class AlgoritmoGenetico {
 		// where 0.0 <= mutationRatio <= 1.0
 		final float mutationRatio = 0.03f;
 	
+                final float inversionRatio = 0.5f;
+                
 		// Get the current run time.  Not very accurate, but useful for 
 		// some simple reporting.
 		long startTime = System.currentTimeMillis();
 		
 		// Create the initial population
 		Population pop = new Population(populationSize, crossoverRatio, 
-				elitismRatio, mutationRatio);
-
+				elitismRatio, mutationRatio, inversionRatio);
+                
+                pop.testaInversao();
 		// Start evolving the population, stopping when the maximum number of
 		// generations is reached, or when we find a solution.
 		int i = 0;
