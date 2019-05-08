@@ -18,12 +18,12 @@ public class Population {
 	private static final int TOURNAMENT_SIZE = 3;
 	
 	/** Convenience randomizer. */
-	private static final Random rand = new Random(System.currentTimeMillis());
+	private static final Random RAND = new Random(System.currentTimeMillis());
 
-	private float elitism;
-	private float mutation;
-	private float crossover;
-        private float inversion;
+	private final float elitism;
+	private final float mutation;
+	private final float crossover;
+        private final float inversion;
 	private Chromosome[] popArr;
 
 	/**
@@ -36,7 +36,8 @@ public class Population {
 	 * evolution, where 0.0 <= elitismRatio < 1.0.
 	 * @param mutationRatio The mutation ratio for the population during
 	 * evolution, where 0.0 <= mutationRatio <= 1.0.
-	 * 
+	 * @param inversionRatio The inversion ratio for the population during
+	 * evolution, where 0.0 <= inversionRatio <= 1.0.
 	 * @throws IllegalArgumentException Thrown if an invalid ratio is given.
 	 */
 	public Population(int size, float crossoverRatio, float elitismRatio, 
@@ -72,30 +73,35 @@ public class Population {
 		// appropriate.
 		while (idx < buffer.length) {
 			// Check to see if we should perform a crossover. 
-			if (rand.nextFloat() <= crossover) {
+			if (RAND.nextFloat() <= crossover) {
 				
 				// Select the parents and mate to get their children
 				Chromosome[] parents = selectParents();
 				Chromosome[] children = parents[0].mate(parents[1]);
 				
 				// Check to see if the first child should be mutated.
-				if (rand.nextFloat() <= mutation) {
-					buffer[idx++] = children[0].mutate();
-				} else {
+				if (RAND.nextFloat() <= inversion) {
+					buffer[idx++] = children[0].inversion();
+				} else if (RAND.nextFloat() <= mutation){
+                                        buffer[idx++] = children[0].mutate();
+                                } else {
 					buffer[idx++] = children[0];
 				}
 				
 				// Repeat for the second child, if there is room.
 				if (idx < buffer.length) {
-					if (rand.nextFloat() <= mutation) {
+                                        if (RAND.nextFloat() <= inversion){
+                                                buffer[idx] = children[1].inversion();
+                                        } else if (RAND.nextFloat() <= mutation) {
 						buffer[idx] = children[1].mutate();
 					} else {
 						buffer[idx] = children[1];
 					}
 				}
 			} else { // No crossover, so copy verbatium.
-				// Determine if mutation should occur.
-				if (rand.nextFloat() <= mutation) {
+                                if (RAND.nextFloat() <= inversion){
+                                        buffer[idx] = popArr[idx].inversion();
+                                }else if (RAND.nextFloat() <= mutation) { // Determine if mutation should occur.
 					buffer[idx] = popArr[idx].mutate();
 				} else {
 					buffer[idx] = popArr[idx];
@@ -165,9 +171,9 @@ public class Population {
 
 		// Randomly select two parents via tournament selection.
 		for (int i = 0; i < 2; i++) {
-			parents[i] = popArr[rand.nextInt(popArr.length)];
+			parents[i] = popArr[RAND.nextInt(popArr.length)];
 			for (int j = 0; j < TOURNAMENT_SIZE; j++) {
-				int idx = rand.nextInt(popArr.length);
+				int idx = RAND.nextInt(popArr.length);
 				if (popArr[idx].compareTo(parents[i]) < 0) {
 					parents[i] = popArr[idx];
 				}
