@@ -176,7 +176,14 @@ public class Chromosome implements Comparable<Chromosome> {
             
             System.arraycopy(arr, pivot1, buffer, 0, Math.abs(pivot1 - pivot2));
             
-            Collections.reverse(Arrays.asList(buffer));
+            int j = buffer.length -1;
+            for(int i=0; i<j; i++, j--){
+                char aux = buffer[i];
+                buffer[i] = buffer[j];
+                buffer[j] = aux;
+            }
+            
+            //Collections.reverse(Arrays.asList(buffer));
             
             System.arraycopy(buffer, 0, child, pivot1, Math.abs(pivot1 - pivot2));
             
