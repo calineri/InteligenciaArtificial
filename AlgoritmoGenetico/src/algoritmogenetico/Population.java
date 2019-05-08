@@ -176,7 +176,4 @@ public class Population {
 		
 		return parents;
 	}
-        public void testaInversao(){
-            this.popArr[0].inversion();
-        }
 }

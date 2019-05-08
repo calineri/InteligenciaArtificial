@@ -44,7 +44,6 @@ public class AlgoritmoGenetico {
 		Population pop = new Population(populationSize, crossoverRatio, 
 				elitismRatio, mutationRatio, inversionRatio);
                 
-                pop.testaInversao();
 		// Start evolving the population, stopping when the maximum number of
 		// generations is reached, or when we find a solution.
 		int i = 0;

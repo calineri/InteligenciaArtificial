@@ -160,11 +160,6 @@ public class Chromosome implements Comparable<Chromosome> {
             char[] arr   = gene.toCharArray();
             char[] child = new char[gene.length()];
             
-            for( char x : arr){
-                System.out.print(x + ",");
-            }
-            System.out.println();
-            
             int pivot1   = rand.nextInt(arr.length);
             int pivot2   = rand.nextInt(arr.length);
             
@@ -185,11 +180,6 @@ public class Chromosome implements Comparable<Chromosome> {
             
             System.arraycopy(buffer, 0, child, pivot1, Math.abs(pivot1 - pivot2));
             
-            for( char x : child){
-                System.out.print(x + ",");
-            }
-            
-            System.out.println();
             return new Chromosome(String.valueOf(child));
         }
         
